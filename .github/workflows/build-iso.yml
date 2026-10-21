@@ -1,0 +1,42 @@
+name: Gerar ISO
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+env:
+  ALPINE_VER: "3.22"
+  ARCH: "x86_64"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gerar ISO dentro de um container Alpine
+        run: |
+          mkdir -p out && chmod 777 out
+          docker run --rm --privileged \
+            -v "$PWD":/projeto:ro -v "$PWD/out":/out \
+            -e VER="$ALPINE_VER" -e ARCH="$ARCH" \
+            alpine:$ALPINE_VER sh -ec '
+              apk add --no-cache alpine-sdk build-base apk-tools alpine-conf busybox fakeroot \
+                  syslinux xorriso squashfs-tools mtools grub grub-efi git sudo
+              adduser -D builder
+              addgroup builder abuild
+              echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+              cp -a /projeto /home/builder/projeto
+              chown -R builder /home/builder/projeto
+              su builder -c "abuild-keygen -i -a -n && cd ~/projeto && ./build.sh $VER $ARCH"
+              cp /home/builder/iso/*.iso /out/
+            '
+          ls -lh out
+
+      - name: Publicar a ISO para download
+        uses: actions/upload-artifact@v4
+        with:
+          name: andorinha-iso
+          path: out/*.iso
+          if-no-files-found: error
