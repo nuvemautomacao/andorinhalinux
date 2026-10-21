@@ -29,7 +29,7 @@ jobs:
               echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
               cp -a /projeto /home/builder/projeto
               chown -R builder /home/builder/projeto
-              su builder -c "abuild-keygen -i -a -n && cd ~/projeto && ./build.sh $VER $ARCH"
+              su builder -c "abuild-keygen -i -a -n && cd ~/projeto && sh build.sh $VER $ARCH"
               cp /home/builder/iso/*.iso /out/
             '
           ls -lh out
