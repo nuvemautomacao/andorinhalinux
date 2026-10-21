@@ -1,0 +1,3 @@
+setxkbmap br &
+xsetroot -solid '#12141a' &
+tint2 &

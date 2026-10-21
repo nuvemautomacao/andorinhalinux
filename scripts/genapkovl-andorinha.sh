@@ -8,6 +8,13 @@ trap 'rm -rf "$tmp"' EXIT
 rc_add() { mkdir -p "$tmp/etc/runlevels/$2"; ln -sf "/etc/init.d/$1" "$tmp/etc/runlevels/$2/$1"; }
 
 cp -a "$DIR/overlay/." "$tmp/"
+mkdir -p "$tmp/etc/apk" "$tmp/etc/network"
+
+# o repositorio guarda esses arquivos sem ponto (upload pelo navegador ignora nomes ocultos)
+mv "$tmp/root/dot-profile" "$tmp/root/.profile"
+mv "$tmp/root/dot-xinitrc" "$tmp/root/.xinitrc"
+mv "$tmp/root/dot-config" "$tmp/root/.config"
+chmod +x "$tmp/usr/local/bin/autologin" "$tmp"/etc/local.d/*.start
 echo "$HOSTNAME" > "$tmp/etc/hostname"
 grep -v '^#' "$DIR/packages.txt" > "$tmp/etc/apk/world"
 printf 'auto lo\niface lo inet loopback\n\nauto eth0\niface eth0 inet dhcp\n' > "$tmp/etc/network/interfaces" 2>/dev/null || {
