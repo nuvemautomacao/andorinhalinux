@@ -1,0 +1,55 @@
+border.width: 1
+padding.width: 8
+padding.height: 6
+window.handle.width: 0
+window.client.padding.width: 0
+menu.overlap: 0
+window.active.border.color: #3b82f6
+window.inactive.border.color: #2a2e38
+window.active.title.separator.color: #1c1f26
+window.inactive.title.separator.color: #1c1f26
+window.active.title.bg: flat solid
+window.active.title.bg.color: #1c1f26
+window.inactive.title.bg: flat solid
+window.inactive.title.bg.color: #16181e
+window.active.label.bg: parentrelative
+window.inactive.label.bg: parentrelative
+window.active.label.text.color: #ffffff
+window.inactive.label.text.color: #8a8f9c
+window.label.text.justify: left
+window.active.button.unpressed.bg: parentrelative
+window.inactive.button.unpressed.bg: parentrelative
+window.active.button.hover.bg: flat solid
+window.active.button.hover.bg.color: #2f3542
+window.active.button.pressed.bg: flat solid
+window.active.button.pressed.bg.color: #3b82f6
+window.active.button.unpressed.image.color: #dddddd
+window.inactive.button.unpressed.image.color: #6b7080
+window.active.button.hover.image.color: #ffffff
+window.active.button.pressed.image.color: #ffffff
+window.active.button.toggled.unpressed.image.color: #3b82f6
+window.active.button.toggled.hover.image.color: #ffffff
+window.active.button.toggled.pressed.image.color: #ffffff
+window.inactive.button.toggled.unpressed.image.color: #6b7080
+menu.border.width: 1
+menu.border.color: #2a2e38
+menu.title.bg: flat solid
+menu.title.bg.color: #1c1f26
+menu.title.text.color: #ffffff
+menu.items.bg: flat solid
+menu.items.bg.color: #1c1f26
+menu.items.text.color: #dddddd
+menu.items.disabled.text.color: #666a75
+menu.items.active.bg: flat solid
+menu.items.active.bg.color: #3b82f6
+menu.items.active.text.color: #ffffff
+menu.separator.color: #2a2e38
+menu.separator.width: 1
+menu.separator.padding.width: 6
+menu.separator.padding.height: 3
+osd.border.width: 1
+osd.border.color: #3b82f6
+osd.bg: flat solid
+osd.bg.color: #1c1f26
+osd.label.bg: parentrelative
+osd.label.text.color: #ffffff

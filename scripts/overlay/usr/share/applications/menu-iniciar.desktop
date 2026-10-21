@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Iniciar
+Exec=jgmenu_run
+Icon=/usr/share/pixmaps/iniciar.svg
+NoDisplay=true

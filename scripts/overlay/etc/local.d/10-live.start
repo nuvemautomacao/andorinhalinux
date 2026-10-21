@@ -1,0 +1,4 @@
+#!/bin/sh
+# Sistema live: remove as ferramentas de instalacao em disco
+rm -f /sbin/setup-disk /sbin/setup-alpine /sbin/setup-bootable /sbin/setup-lbu 2>/dev/null
+exit 0

@@ -1,0 +1,22 @@
+#!/bin/sh -e
+HOSTNAME="$1"
+[ -n "$HOSTNAME" ] || { echo "uso: $0 hostname"; exit 1; }
+DIR="$(dirname "$(readlink -f "$0")")"
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+rc_add() { mkdir -p "$tmp/etc/runlevels/$2"; ln -sf "/etc/init.d/$1" "$tmp/etc/runlevels/$2/$1"; }
+
+cp -a "$DIR/overlay/." "$tmp/"
+echo "$HOSTNAME" > "$tmp/etc/hostname"
+grep -v '^#' "$DIR/packages.txt" > "$tmp/etc/apk/world"
+printf 'auto lo\niface lo inet loopback\n\nauto eth0\niface eth0 inet dhcp\n' > "$tmp/etc/network/interfaces" 2>/dev/null || {
+  mkdir -p "$tmp/etc/network"
+  printf 'auto lo\niface lo inet loopback\n\nauto eth0\niface eth0 inet dhcp\n' > "$tmp/etc/network/interfaces"; }
+
+for s in devfs dmesg udev udev-trigger udev-settle; do rc_add $s sysinit; done
+for s in modules sysctl hostname bootmisc syslog; do rc_add $s boot; done
+for s in networking local; do rc_add $s default; done
+for s in mount-ro killprocs savecache; do rc_add $s shutdown; done
+
+tar -c -C "$tmp" . | gzip -9n > "$HOSTNAME.apkovl.tar.gz"
