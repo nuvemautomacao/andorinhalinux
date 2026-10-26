@@ -1,0 +1,10 @@
+#!/bin/sh
+# DHCP em todas as interfaces com fio/virtuais, qualquer que seja o nome
+for i in /sys/class/net/*; do
+  n="${i##*/}"
+  [ "$n" = lo ] && continue
+  case "$n" in wl*|wlan*) continue;; esac
+  ip link set "$n" up 2>/dev/null
+  udhcpc -b -q -t 5 -i "$n" -p "/run/udhcpc.$n.pid" >/dev/null 2>&1 &
+done
+exit 0

@@ -1,0 +1,20 @@
+# Carregados no boot pelo servico "modules". Os que nao existirem sao ignorados.
+evdev
+i8042
+atkbd
+psmouse
+usbhid
+hid_generic
+hid
+xhci_pci
+ehci_pci
+ohci_pci
+uhci_hcd
+sr_mod
+e1000
+e1000e
+virtio_net
+r8169
+8139too
+pcnet32
+vmxnet3
