@@ -18,3 +18,4 @@ hicolor-icon-theme
 st
 pcmanfm
 netsurf
+font-dejavu

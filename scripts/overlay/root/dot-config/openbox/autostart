@@ -1,3 +1,5 @@
 setxkbmap br &
 xsetroot -solid '#12141a' &
 tint2 &
+# DIAGNOSTICO TEMPORARIO - apagar a linha abaixo quando teclado e mouse funcionarem
+(sleep 6; st -g 112x38+0+0 -f 'DejaVu Sans Mono:pixelsize=13' -e /usr/local/bin/diag) &

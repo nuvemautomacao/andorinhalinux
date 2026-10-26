@@ -1,0 +1,13 @@
+#!/bin/sh
+c() { cut -c1-112 | head -${1:-30}; }
+while true; do
+  clear; echo "=== 1/5 SERVICOS (rc-status) ==="; rc-status -a 2>&1 | c 34; sleep 25
+  clear; echo "=== 2/5 ENTRADA ==="; echo "udevd: $(pidof udevd || echo NAO ESTA RODANDO)"
+  ls /dev/input 2>&1 | tr '\n' ' '; echo; grep -E '^(N|H):' /proc/bus/input/devices 2>&1 | c 28; sleep 25
+  clear; echo "=== 3/5 LOG DO XORG (erros e entrada) ==="
+  L=/var/log/Xorg.0.log; [ -f $L ] || L=/root/.local/share/xorg/Xorg.0.log
+  grep -E '\(EE\)|\(WW\)|libinput|evdev|udev|Using input' $L 2>&1 | c 34; sleep 25
+  clear; echo "=== 4/5 KERNEL E MODULOS ==="; uname -r; mount | grep -i -E 'modloop|lib/modules' | c 3
+  lsmod | c 12; dmesg | grep -i -E 'i8042|atkbd|psmouse|hid|input' | tail -12 | c 12; sleep 25
+  clear; echo "=== 5/5 REDE ==="; ip -br a 2>&1 | c 8; cat /etc/resolv.conf 2>&1 | c 4; ps | grep -c '[u]dhcpc'; sleep 25
+done

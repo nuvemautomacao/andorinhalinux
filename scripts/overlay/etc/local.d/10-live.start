@@ -3,5 +3,7 @@
 rm -f /sbin/setup-disk /sbin/setup-alpine /sbin/setup-bootable /sbin/setup-lbu 2>/dev/null
 # garante o udev (necessario para o X enxergar teclado e mouse)
 pidof udevd >/dev/null 2>&1 || { rc-service udev start; rc-service udev-trigger start; }
+udevadm trigger --action=add --subsystem-match=input 2>/dev/null
+udevadm trigger --action=add --subsystem-match=usb 2>/dev/null
 udevadm settle --timeout=10 2>/dev/null
 exit 0
